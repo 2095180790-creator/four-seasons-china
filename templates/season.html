@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="{{WASH}}">
+  <meta name="description" content="{{DESCRIPTION}}">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2246%22 fill=%22%23171814%22/><path d=%22M50 16c11 11 16 21 16 34S61 84 50 84 34 63 34 50s5-23 16-34Z%22 fill=%22%23f4efe7%22/></svg>">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="season-page season-page--{{SLUG}}">
+  <main
+    class="season-view"
+    style="--accent: {{ACCENT}}; --wash: {{WASH}};"
+    data-previous-url="/season/{{PREVIOUS_SLUG}}"
+    data-next-url="/season/{{NEXT_SLUG}}"
+  >
+    <header class="season-header" data-reveal>
+      <a class="back-link" href="/" data-page-transition>
+        <span aria-hidden="true">←</span> All seasons
+      </a>
+      <p class="season-location">{{LOCATION}}</p>
+    </header>
+
+    <section class="season-layout" aria-labelledby="season-title">
+      <figure class="season-visual" data-reveal>
+        <img src="/static/{{IMAGE}}" alt="{{IMAGE_ALT}}" fetchpriority="high">
+        <figcaption>{{LOCATION}} · {{NAME}}</figcaption>
+      </figure>
+
+      <article class="season-copy">
+        <div class="season-index" data-reveal>
+          <span>{{NUMBER}}</span>
+          <span>/ 04</span>
+        </div>
+
+        <p class="eyebrow season-kicker" data-reveal>{{NAME}} in {{SHORT_LOCATION}}</p>
+        <h1 id="season-title" class="sr-only">{{NAME}} in {{LOCATION}}</h1>
+
+        <blockquote data-reveal>
+          <p>“{{QUOTE}}”</p>
+          <footer>— {{AUTHOR}}</footer>
+        </blockquote>
+
+        <nav class="season-pagination" aria-label="Previous and next seasons" data-reveal>
+          <a href="/season/{{PREVIOUS_SLUG}}" data-page-transition>
+            <span class="pagination-label">Previous</span>
+            <span class="pagination-name">← {{PREVIOUS_NAME}}</span>
+          </a>
+          <a href="/season/{{NEXT_SLUG}}" data-page-transition>
+            <span class="pagination-label">Next</span>
+            <span class="pagination-name">{{NEXT_NAME}} →</span>
+          </a>
+        </nav>
+      </article>
+    </section>
+
+    <div class="season-swipe-hint" aria-hidden="true">
+      <span>Swipe to change seasons</span>
+      <span class="swipe-line"></span>
+    </div>
+  </main>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

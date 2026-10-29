@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: four-seasons-across-china
+    runtime: python
+    startCommand: python app.py
+    plan: free
