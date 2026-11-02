@@ -71,7 +71,8 @@ python -m unittest discover -s tests -v
 ```text
 four-seasons-china/
 ├── app.py
-├── render.yaml
+├── build_static.py
+├── pythonanywhere_wsgi.py
 ├── templates/
 │   ├── index.html
 │   ├── season.html
@@ -82,6 +83,8 @@ four-seasons-china/
 │   └── images/
 ├── previews/
 │   └── *.png
+├── docs/
+│   └── GitHub Pages static site
 └── tests/test_app.py
 ```
 
@@ -89,12 +92,40 @@ four-seasons-china/
 
 The four photographs were provided by the project author for this coursework website. Confirm that each image may be published publicly before deploying the project. Keep any required photographer or source credit available in a separate project note.
 
-## Deployment
+## Run with WSGI
 
-The included `render.yaml` starts the site with:
+`pythonanywhere_wsgi.py` provides a standard WSGI `application` object. It allows
+PythonAnywhere to call the application directly:
 
-```text
+```python
+from pythonanywhere_wsgi import application
+```
+
+PythonAnywhere has a free tier and does not need a credit card for its basic web
+app. The project can also still run locally with:
+
+```powershell
 python app.py
 ```
 
-Point the deployment platform to the project root. The server reads the platform's `PORT` environment variable automatically.
+See `SUBMISSION_GUIDE_ZH.md` for the PythonAnywhere setup steps.
+
+## Publish the static demo with GitHub Pages
+
+The `docs/` directory contains a static export of the Python-rendered pages. It
+does not require a credit card and can be published directly by GitHub:
+
+1. Commit and push the `docs/` directory.
+2. Open the repository's `Settings > Pages`.
+3. Select `Deploy from a branch`.
+4. Choose branch `main` and folder `/docs`.
+5. Save the setting and wait for GitHub to publish the site.
+
+The expected address is:
+
+```text
+https://2095180790-creator.github.io/four-seasons-china/
+```
+
+This GitHub Pages version is a static browser demo. The complete Python server,
+WSGI entry point, and automated tests remain in the repository.

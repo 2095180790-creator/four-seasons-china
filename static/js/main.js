@@ -41,6 +41,7 @@ const seasonView = document.querySelector(".season-view");
 if (seasonView) {
   const previousUrl = seasonView.dataset.previousUrl;
   const nextUrl = seasonView.dataset.nextUrl;
+  const homeUrl = seasonView.dataset.homeUrl || "/";
 
   document.addEventListener("keydown", (event) => {
     if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
@@ -54,7 +55,7 @@ if (seasonView) {
       window.location.assign(nextUrl);
     }
     if (event.key === "Escape") {
-      window.location.assign("/");
+      window.location.assign(homeUrl);
     }
   });
 
