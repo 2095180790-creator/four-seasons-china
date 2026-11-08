@@ -28,9 +28,18 @@ SEASONS = {
         "quote": "The earth laughs in flowers.",
         "author": "Ralph Waldo Emerson",
         "activities": [
-            "Stroll through the cherry blossom garden at Yuantong Temple",
-            "Row a boat across Green Lake and watch the willows",
-            "Share a picnic under the blooming camellias",
+            {
+                "title": "Cherry Blossom Walk at Yuantong Temple",
+                "description": "Wander beneath the pink blossoms and listen to the temple bells before the crowds arrive.",
+            },
+            {
+                "title": "Boating on Green Lake",
+                "description": "Rent a small boat, drift past the willows, and watch the spring flowers reflected in the water.",
+            },
+            {
+                "title": "Camellia Picnic",
+                "description": "Spread a blanket among Kunming's camellias and share fruit and tea in the mild afternoon sun.",
+            },
         ],
         "accent": "#d76e8d",
         "wash": "#f6e6eb",
@@ -46,9 +55,18 @@ SEASONS = {
         "quote": "Deep summer is when laziness finds respectability.",
         "author": "Sam Keen",
         "activities": [
-            "Swim and snorkel along the coral coast",
-            "Ride the coastal road at sunset",
-            "Open a fresh coconut under the palm trees",
+            {
+                "title": "Coral Coast Snorkelling",
+                "description": "Float over the coral reef, look for colourful fish, and let the warm sea carry you along.",
+            },
+            {
+                "title": "Sunset Ride on the Coastal Road",
+                "description": "Cycle beside the ocean as the sun drops and the sky turns orange and pink.",
+            },
+            {
+                "title": "Fresh Coconut by the Shore",
+                "description": "Find a palm-tree stand, drink the water straight from a coconut, and rest in the shade.",
+            },
         ],
         "accent": "#138eb9",
         "wash": "#dff3f7",
@@ -64,9 +82,18 @@ SEASONS = {
         "quote": "Autumn is a second spring when every leaf is a flower.",
         "author": "Albert Camus",
         "activities": [
-            "Walk the boardwalks past the turquoise lakes",
-            "Photograph the golden forests reflected in the water",
-            "Listen to the waterfall between the coloured valleys",
+            {
+                "title": "Boardwalk Walk Between the Lakes",
+                "description": "Follow the wooden paths past turquoise water while red and gold leaves drift down from the trees.",
+            },
+            {
+                "title": "Photograph the Golden Reflections",
+                "description": "Frame the coloured forest mirrored in the still lakes, especially in the soft morning light.",
+            },
+            {
+                "title": "Waterfall Listening",
+                "description": "Stand close to the falling water, hear the valley echo, and feel the cool spray in the autumn air.",
+            },
         ],
         "accent": "#c86b2c",
         "wash": "#f7e9d7",
@@ -82,9 +109,18 @@ SEASONS = {
         "quote": "If winter comes, can spring be far behind?",
         "author": "Percy Bysshe Shelley",
         "activities": [
-            "Watch the sunrise turn the mountains golden",
-            "Walk the pilgrimage path around the old quarter",
-            "Warm up with butter tea in a rooftop teahouse",
+            {
+                "title": "Golden Sunrise over the Mountains",
+                "description": "Wake early and watch the first light turn the snow-covered peaks a deep golden orange.",
+            },
+            {
+                "title": "Pilgrimage Walk in the Old Quarter",
+                "description": "Walk slowly through the historic streets, follow the local rhythm, and see the prayer flags in the wind.",
+            },
+            {
+                "title": "Butter Tea on a Rooftop",
+                "description": "Warm your hands around a cup of butter tea and look out over the winter rooftops toward the mountains.",
+            },
         ],
         "accent": "#578aab",
         "wash": "#e3edf2",
@@ -116,12 +152,15 @@ def mini_navigation() -> str:
     return "\n".join(links)
 
 
-def activities_markup(activities: list[str]) -> str:
+def activities_markup(activities: list[dict[str, str]]) -> str:
     items = []
     for index, activity in enumerate(activities, start=1):
         items.append(
             f'<li><span class="activity-number">{index:02d}</span>'
-            f'<span class="activity-text">{escape(activity)}</span></li>'
+            f'<span class="activity-content">'
+            f'<strong class="activity-title">{escape(activity["title"])}</strong>'
+            f'<span class="activity-text">{escape(activity["description"])}</span>'
+            f'</span></li>'
         )
     return '<ul class="season-activities-list">' + "".join(items) + "</ul>"
 

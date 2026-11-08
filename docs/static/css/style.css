@@ -527,7 +527,7 @@ kbd {
 .season-activities-list li {
   display: flex;
   gap: 12px;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
 .activity-number {
@@ -538,10 +538,24 @@ kbd {
   font-weight: 700;
 }
 
-.activity-text {
+.activity-content {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.activity-title {
   color: var(--ink);
   font-family: var(--serif);
   font-size: clamp(1rem, 1.35vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.activity-text {
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.82rem;
   line-height: 1.35;
 }
 
