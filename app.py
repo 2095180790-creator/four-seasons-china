@@ -27,6 +27,11 @@ SEASONS = {
         "image_alt": "Pink cherry blossoms framing a traditional building in Kunming",
         "quote": "The earth laughs in flowers.",
         "author": "Ralph Waldo Emerson",
+        "activities": [
+            "Stroll through the cherry blossom garden at Yuantong Temple",
+            "Row a boat across Green Lake and watch the willows",
+            "Share a picnic under the blooming camellias",
+        ],
         "accent": "#d76e8d",
         "wash": "#f6e6eb",
     },
@@ -40,6 +45,11 @@ SEASONS = {
         "image_alt": "Tall palm trees and a bright blue sky beside the coast in Hainan",
         "quote": "Deep summer is when laziness finds respectability.",
         "author": "Sam Keen",
+        "activities": [
+            "Swim and snorkel along the coral coast",
+            "Ride the coastal road at sunset",
+            "Open a fresh coconut under the palm trees",
+        ],
         "accent": "#138eb9",
         "wash": "#dff3f7",
     },
@@ -53,6 +63,11 @@ SEASONS = {
         "image_alt": "Golden autumn trees reflected in a clear turquoise lake in Jiuzhaigou",
         "quote": "Autumn is a second spring when every leaf is a flower.",
         "author": "Albert Camus",
+        "activities": [
+            "Walk the boardwalks past the turquoise lakes",
+            "Photograph the golden forests reflected in the water",
+            "Listen to the waterfall between the coloured valleys",
+        ],
         "accent": "#c86b2c",
         "wash": "#f7e9d7",
     },
@@ -66,6 +81,11 @@ SEASONS = {
         "image_alt": "Golden morning light on a snow-covered mountain reflected in still water",
         "quote": "If winter comes, can spring be far behind?",
         "author": "Percy Bysshe Shelley",
+        "activities": [
+            "Watch the sunrise turn the mountains golden",
+            "Walk the pilgrimage path around the old quarter",
+            "Warm up with butter tea in a rooftop teahouse",
+        ],
         "accent": "#578aab",
         "wash": "#e3edf2",
     },
@@ -94,6 +114,16 @@ def mini_navigation() -> str:
             f'<span>{escape(season["number"])}</span>{escape(season["name"])}</a>'
         )
     return "\n".join(links)
+
+
+def activities_markup(activities: list[str]) -> str:
+    items = []
+    for index, activity in enumerate(activities, start=1):
+        items.append(
+            f'<li><span class="activity-number">{index:02d}</span>'
+            f'<span class="activity-text">{escape(activity)}</span></li>'
+        )
+    return '<ul class="season-activities-list">' + "".join(items) + "</ul>"
 
 
 def season_cards() -> str:
@@ -165,6 +195,7 @@ def season_page(slug: str) -> str | None:
             "IMAGE_ALT": escape(selected["image_alt"]),
             "QUOTE": escape(selected["quote"]),
             "AUTHOR": escape(selected["author"]),
+            "ACTIVITIES": activities_markup(selected["activities"]),
             "NUMBER": escape(selected["number"]),
             "ACCENT": escape(selected["accent"]),
             "WASH": escape(selected["wash"]),

@@ -478,7 +478,7 @@ kbd {
 }
 
 .season-copy blockquote {
-  margin: clamp(18px, 4vh, 42px) 0 clamp(52px, 8vh, 92px);
+  margin: clamp(18px, 4vh, 42px) 0 clamp(28px, 5vh, 48px);
 }
 
 .season-copy blockquote p {
@@ -499,6 +499,50 @@ kbd {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.season-activities {
+  margin-bottom: clamp(24px, 4vh, 44px);
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.activities-title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.season-activities-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.season-activities-list li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.activity-number {
+  flex: none;
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.activity-text {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.35;
 }
 
 .season-pagination {
@@ -656,7 +700,7 @@ kbd {
   }
 
   .home-intro h1 {
-    font-size: clamp(2.9rem, 14vw, 5rem);
+    font-size: clamp(2.4rem, 10.25vw, 4.2rem);
   }
 
   .season-grid {
