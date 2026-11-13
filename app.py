@@ -250,23 +250,39 @@ def picture_markup(
 def activities_markup(activities: list[dict[str, str]], slug: str) -> str:
     items = []
     for index, activity in enumerate(activities, start=1):
+        builtin_id = f"{slug}-{index}"
         items.append(
-            f'<li><label class="activity-item">'
+            f'<li class="activity-row" data-builtin-id="{builtin_id}">'
+            f'<label class="activity-item">'
             f'<input class="activity-checkbox" type="checkbox" data-activity>'
             f'<span class="activity-marker" aria-hidden="true"></span>'
             f'<span class="activity-content">'
             f'<strong class="activity-title">{escape(activity["title"])}</strong>'
             f'<span class="activity-text">{escape(activity["description"])}</span>'
-            f'</span></label></li>'
+            f'</span></label>'
+            f'<button class="activity-delete" type="button" '
+            f'data-delete-builtin data-builtin-id="{builtin_id}">Delete</button>'
+            f'</li>'
         )
     return (
         f'<div class="season-activities" data-activity-list data-slug="{slug}" data-reveal>'
         '<div class="activities-heading">'
         '<h2 class="activities-title">Things to do here</h2>'
         '<span class="activity-progress"><span data-activity-count>0</span> / '
-        f'{len(activities)}</span>'
+        f'<span data-activity-total>{len(activities)}</span></span>'
         "</div>"
-        '<ul class="season-activities-list">' + "".join(items) + "</ul></div>"
+        '<ul class="season-activities-list">' + "".join(items) + "</ul>"
+        '<button class="activity-restore" type="button" data-restore-activities>'
+        'Restore deleted</button>'
+        '<div class="custom-activities" data-custom-activities>'
+        '<p class="custom-activities-title">Add your own activity</p>'
+        '<div class="custom-activity-form">'
+        '<input class="custom-activity-input" type="text" maxlength="80" '
+        'placeholder="e.g. Watch the sunrise">'
+        '<button class="custom-activity-add" type="button">Add</button>'
+        "</div>"
+        '<ul class="custom-activity-list" data-custom-list></ul>'
+        "</div></div>"
     )
 
 

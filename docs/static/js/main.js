@@ -41,13 +41,22 @@ const activityList = document.querySelector("[data-activity-list]");
 if (activityList) {
   const slug = activityList.dataset.slug;
   const storageKey = `four-seasons-activities-${slug}`;
+  const customKey = `four-seasons-custom-activities-${slug}`;
+  const deletedKey = `four-seasons-deleted-activities-${slug}`;
   const boxes = Array.from(activityList.querySelectorAll("[data-activity]"));
   const count = activityList.querySelector("[data-activity-count]");
+  const total = activityList.querySelector("[data-activity-total]");
 
   const updateActivityCount = () => {
-    const done = boxes.filter((box) => box.checked).length;
+    const visibleBoxes = Array.from(
+      activityList.querySelectorAll(".activity-row:not([hidden]) [data-activity]")
+    );
+    const done = visibleBoxes.filter((box) => box.checked).length;
     if (count) {
       count.textContent = String(done);
+    }
+    if (total) {
+      total.textContent = String(visibleBoxes.length);
     }
   };
 
@@ -78,6 +87,123 @@ if (activityList) {
   });
 
   updateActivityCount();
+
+  const loadDeletedActivities = () => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(deletedKey) || "[]");
+      return Array.isArray(stored) ? stored : [];
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const saveDeletedActivities = (items) => {
+    try {
+      localStorage.setItem(deletedKey, JSON.stringify(items));
+    } catch (error) {
+      // Local storage can be unavailable in private browsing.
+    }
+  };
+
+  const deletedIds = new Set(loadDeletedActivities());
+  activityList.querySelectorAll(".activity-row").forEach((row) => {
+    row.hidden = deletedIds.has(row.dataset.builtinId);
+  });
+
+  activityList.querySelectorAll("[data-delete-builtin]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest(".activity-row");
+      if (!row) {
+        return;
+      }
+      const id = row.dataset.builtinId;
+      const items = loadDeletedActivities();
+      if (!items.includes(id)) {
+        items.push(id);
+      }
+      saveDeletedActivities(items);
+      row.hidden = true;
+      updateActivityCount();
+    });
+  });
+
+  const restoreButton = activityList.querySelector("[data-restore-activities]");
+  restoreButton?.addEventListener("click", () => {
+    try {
+      localStorage.removeItem(deletedKey);
+    } catch (error) {
+      // Ignore storage errors when restoring.
+    }
+    window.location.reload();
+  });
+
+  const customSection = activityList.querySelector("[data-custom-activities]");
+  if (customSection) {
+    const customInput = customSection.querySelector(".custom-activity-input");
+    const customAdd = customSection.querySelector(".custom-activity-add");
+    const customList = customSection.querySelector("[data-custom-list]");
+
+    const loadCustomActivities = () => {
+      try {
+        const stored = JSON.parse(localStorage.getItem(customKey) || "[]");
+        return Array.isArray(stored) ? stored : [];
+      } catch (error) {
+        return [];
+      }
+    };
+
+    const saveCustomActivities = (items) => {
+      try {
+        localStorage.setItem(customKey, JSON.stringify(items));
+      } catch (error) {
+        // Local storage can be unavailable in private browsing.
+      }
+    };
+
+    const renderCustomActivities = () => {
+      customList.replaceChildren();
+      loadCustomActivities().forEach((item, index) => {
+        const listItem = document.createElement("li");
+        const text = document.createElement("span");
+        text.className = "custom-activity-text";
+        text.textContent = item;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "custom-activity-delete";
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete";
+        deleteButton.dataset.index = String(index);
+
+        listItem.append(text, deleteButton);
+        customList.appendChild(listItem);
+      });
+    };
+
+    customAdd.addEventListener("click", () => {
+      const value = customInput.value.trim();
+      if (!value) {
+        return;
+      }
+      const items = loadCustomActivities();
+      items.push(value);
+      saveCustomActivities(items);
+      customInput.value = "";
+      renderCustomActivities();
+    });
+
+    customList.addEventListener("click", (event) => {
+      const button = event.target.closest(".custom-activity-delete");
+      if (!button) {
+        return;
+      }
+      const items = loadCustomActivities();
+      items.splice(Number(button.dataset.index), 1);
+      saveCustomActivities(items);
+      renderCustomActivities();
+    });
+
+    renderCustomActivities();
+  }
 }
 
 const lightbox = document.querySelector("[data-lightbox]");
