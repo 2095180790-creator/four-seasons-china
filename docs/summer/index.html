@@ -26,9 +26,16 @@
     </header>
 
     <section class="season-layout" aria-labelledby="season-title">
-      <figure class="season-visual" data-reveal>
-        <img src="../static/images/summer-hainan.webp" alt="Tall palm trees and a bright blue sky beside the coast in Hainan" fetchpriority="high">
-        <figcaption>Hainan · Summer</figcaption>
+      <figure
+        class="season-visual"
+        data-reveal
+        data-lightbox-trigger
+        tabindex="0"
+        role="button"
+        aria-label="Enlarge the photograph"
+      >
+        <picture><source type="image/webp" srcset="../static/images/summer-hainan.webp 1800w, ../static/images/summer-hainan-small.webp 900w" sizes="(max-width: 760px) 100vw, 55vw"><img src="../static/images/summer-hainan.webp" alt="Tall palm trees and a bright blue sky beside the coast in Hainan" fetchpriority="high"></picture>
+        <figcaption>Hainan · Summer · Click to enlarge</figcaption>
       </figure>
 
       <article class="season-copy">
@@ -40,6 +47,9 @@
         <p class="eyebrow season-kicker" data-reveal>Summer in Hainan</p>
         <h1 id="season-title" class="sr-only">Summer in Hainan</h1>
 
+        <p class="season-intro" data-reveal>China&#x27;s tropical island, Hainan turns long warm days and a blue coast into a long, easy summer.</p>
+        <p class="season-best-time" data-reveal>Best time to visit: <strong>June to August</strong></p>
+
         <blockquote data-reveal>
           <p>“Deep summer is when laziness finds respectability.”</p>
           <footer>— Sam Keen</footer>
@@ -47,7 +57,7 @@
 
         <section class="season-activities" data-reveal aria-labelledby="activities-title">
           <h2 id="activities-title" class="activities-title">Things to do here</h2>
-          <ul class="season-activities-list"><li><span class="activity-number">01</span><span class="activity-content"><strong class="activity-title">Coral Coast Snorkelling</strong><span class="activity-text">Float over the coral reef, look for colourful fish, and let the warm sea carry you along.</span></span></li><li><span class="activity-number">02</span><span class="activity-content"><strong class="activity-title">Sunset Ride on the Coastal Road</strong><span class="activity-text">Cycle beside the ocean as the sun drops and the sky turns orange and pink.</span></span></li><li><span class="activity-number">03</span><span class="activity-content"><strong class="activity-title">Fresh Coconut by the Shore</strong><span class="activity-text">Find a palm-tree stand, drink the water straight from a coconut, and rest in the shade.</span></span></li></ul>
+          <div class="season-activities" data-activity-list data-slug="summer"><div class="activities-heading"><h2 class="activities-title">Things to do here</h2><span class="activity-progress"><span data-activity-count>0</span> / 3</span></div><ul class="season-activities-list"><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Coral Coast Snorkelling</strong><span class="activity-text">Float over the coral reef, look for colourful fish, and let the warm sea carry you along.</span></span></label></li><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Sunset Ride on the Coastal Road</strong><span class="activity-text">Cycle beside the ocean as the sun drops and the sky turns orange and pink.</span></span></label></li><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Fresh Coconut by the Shore</strong><span class="activity-text">Find a palm-tree stand, drink the water straight from a coconut, and rest in the shade.</span></span></label></li></ul></div>
         </section>
 
         <nav class="season-pagination" aria-label="Previous and next seasons" data-reveal>
@@ -62,6 +72,11 @@
         </nav>
       </article>
     </section>
+
+    <div class="lightbox" data-lightbox hidden>
+      <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+      <img class="lightbox-image" data-lightbox-image src="" alt="">
+    </div>
 
     <div class="season-swipe-hint" aria-hidden="true">
       <span>Swipe to change seasons</span>

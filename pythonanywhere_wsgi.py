@@ -8,6 +8,7 @@ from urllib.parse import unquote
 
 from app import (
     STATIC_DIR,
+    compare_page,
     home_page,
     not_found_page,
     season_api_data,
@@ -48,6 +49,8 @@ def application(environ, start_response):
             indent=2,
         ).encode("utf-8")
         content_type = "application/json; charset=utf-8"
+    elif path == "/compare":
+        body = compare_page().encode("utf-8")
     elif path == "/health":
         body = b'{"status": "ok"}'
         content_type = "application/json"

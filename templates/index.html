@@ -35,7 +35,18 @@
       </p>
     </section>
 
-    <section class="season-grid" aria-label="Choose a season">
+    <div class="season-controls" data-season-controls aria-label="Filter and sort seasons">
+      <div class="filter-buttons">
+        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-button" type="button" data-filter="spring" aria-pressed="false">Spring</button>
+        <button class="filter-button" type="button" data-filter="summer" aria-pressed="false">Summer</button>
+        <button class="filter-button" type="button" data-filter="autumn" aria-pressed="false">Autumn</button>
+        <button class="filter-button" type="button" data-filter="winter" aria-pressed="false">Winter</button>
+      </div>
+      <button class="sort-button" type="button" data-sort-toggle aria-pressed="false">Sort A–Z</button>
+    </div>
+
+    <section class="season-grid" data-season-grid aria-label="Choose a season">
       {{SEASON_CARDS}}
     </section>
 

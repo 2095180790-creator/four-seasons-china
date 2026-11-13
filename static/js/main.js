@@ -36,6 +36,136 @@ document.querySelectorAll("[data-page-transition]").forEach((link) => {
   });
 });
 
+const activityList = document.querySelector("[data-activity-list]");
+
+if (activityList) {
+  const slug = activityList.dataset.slug;
+  const storageKey = `four-seasons-activities-${slug}`;
+  const boxes = Array.from(activityList.querySelectorAll("[data-activity]"));
+  const count = activityList.querySelector("[data-activity-count]");
+
+  const updateActivityCount = () => {
+    const done = boxes.filter((box) => box.checked).length;
+    if (count) {
+      count.textContent = String(done);
+    }
+  };
+
+  const saveActivityState = () => {
+    const state = boxes.map((box) => box.checked);
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    } catch (error) {
+      // Local storage can be unavailable in private browsing.
+    }
+  };
+
+  let savedState = [];
+  try {
+    savedState = JSON.parse(localStorage.getItem(storageKey) || "[]");
+  } catch (error) {
+    savedState = [];
+  }
+
+  boxes.forEach((box, index) => {
+    box.checked = Boolean(savedState[index]);
+    box.closest(".activity-item")?.classList.toggle("is-done", box.checked);
+    box.addEventListener("change", () => {
+      box.closest(".activity-item")?.classList.toggle("is-done", box.checked);
+      updateActivityCount();
+      saveActivityState();
+    });
+  });
+
+  updateActivityCount();
+}
+
+const lightbox = document.querySelector("[data-lightbox]");
+const lightboxTrigger = document.querySelector("[data-lightbox-trigger]");
+
+const openLightbox = () => {
+  if (!lightbox || !lightboxTrigger) {
+    return;
+  }
+  const sourceImage = lightboxTrigger.querySelector("img");
+  const lightboxImage = lightbox.querySelector("[data-lightbox-image]");
+  if (!sourceImage || !lightboxImage) {
+    return;
+  }
+  lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+  lightboxImage.alt = sourceImage.alt;
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  lightbox.querySelector(".lightbox-close")?.focus();
+};
+
+const closeLightbox = () => {
+  if (!lightbox) {
+    return;
+  }
+  lightbox.hidden = true;
+  document.body.classList.remove("lightbox-open");
+  lightboxTrigger?.focus();
+};
+
+if (lightboxTrigger && lightbox) {
+  lightboxTrigger.addEventListener("click", openLightbox);
+  lightboxTrigger.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openLightbox();
+    }
+  });
+
+  lightbox.querySelector(".lightbox-close")?.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+}
+
+const seasonControls = document.querySelector("[data-season-controls]");
+const seasonGrid = document.querySelector("[data-season-grid]");
+
+if (seasonControls && seasonGrid) {
+  const cards = Array.from(seasonGrid.querySelectorAll(".season-card"));
+  let currentFilter = "all";
+  let sortAscending = false;
+
+  const filterButtons = Array.from(
+    seasonControls.querySelectorAll("[data-filter]")
+  );
+  const sortButton = seasonControls.querySelector("[data-sort-toggle]");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentFilter = button.dataset.filter;
+      filterButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      cards.forEach((card) => {
+        const show =
+          currentFilter === "all" || card.dataset.season === currentFilter;
+        card.classList.toggle("is-hidden", !show);
+      });
+    });
+  });
+
+  sortButton?.addEventListener("click", () => {
+    sortAscending = !sortAscending;
+    sortButton.setAttribute("aria-pressed", String(sortAscending));
+    sortButton.textContent = sortAscending ? "Sort Z–A" : "Sort A–Z";
+    const sorted = [...cards].sort((first, second) => {
+      const result = first.dataset.name.localeCompare(second.dataset.name);
+      return sortAscending ? result : -result;
+    });
+    sorted.forEach((card) => seasonGrid.appendChild(card));
+  });
+}
+
 const seasonView = document.querySelector(".season-view");
 
 if (seasonView) {
@@ -45,6 +175,11 @@ if (seasonView) {
 
   document.addEventListener("keydown", (event) => {
     if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+      return;
+    }
+
+    if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+      closeLightbox();
       return;
     }
 

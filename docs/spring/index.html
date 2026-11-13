@@ -26,9 +26,16 @@
     </header>
 
     <section class="season-layout" aria-labelledby="season-title">
-      <figure class="season-visual" data-reveal>
-        <img src="../static/images/spring-kunming.jpg" alt="Pink cherry blossoms framing a traditional building in Kunming" fetchpriority="high">
-        <figcaption>Kunming, Yunnan · Spring</figcaption>
+      <figure
+        class="season-visual"
+        data-reveal
+        data-lightbox-trigger
+        tabindex="0"
+        role="button"
+        aria-label="Enlarge the photograph"
+      >
+        <picture><source type="image/webp" srcset="../static/images/spring-kunming.webp 1800w, ../static/images/spring-kunming-small.webp 900w" sizes="(max-width: 760px) 100vw, 55vw"><img src="../static/images/spring-kunming.jpg" alt="Pink cherry blossoms framing a traditional building in Kunming" fetchpriority="high"></picture>
+        <figcaption>Kunming, Yunnan · Spring · Click to enlarge</figcaption>
       </figure>
 
       <article class="season-copy">
@@ -40,6 +47,9 @@
         <p class="eyebrow season-kicker" data-reveal>Spring in Kunming</p>
         <h1 id="season-title" class="sr-only">Spring in Kunming, Yunnan</h1>
 
+        <p class="season-intro" data-reveal>Known as the City of Eternal Spring, Kunming fills with cherry blossoms and camellias when the weather turns mild.</p>
+        <p class="season-best-time" data-reveal>Best time to visit: <strong>March to May</strong></p>
+
         <blockquote data-reveal>
           <p>“The earth laughs in flowers.”</p>
           <footer>— Ralph Waldo Emerson</footer>
@@ -47,7 +57,7 @@
 
         <section class="season-activities" data-reveal aria-labelledby="activities-title">
           <h2 id="activities-title" class="activities-title">Things to do here</h2>
-          <ul class="season-activities-list"><li><span class="activity-number">01</span><span class="activity-content"><strong class="activity-title">Cherry Blossom Walk at Yuantong Temple</strong><span class="activity-text">Wander beneath the pink blossoms and listen to the temple bells before the crowds arrive.</span></span></li><li><span class="activity-number">02</span><span class="activity-content"><strong class="activity-title">Boating on Green Lake</strong><span class="activity-text">Rent a small boat, drift past the willows, and watch the spring flowers reflected in the water.</span></span></li><li><span class="activity-number">03</span><span class="activity-content"><strong class="activity-title">Camellia Picnic</strong><span class="activity-text">Spread a blanket among Kunming&#x27;s camellias and share fruit and tea in the mild afternoon sun.</span></span></li></ul>
+          <div class="season-activities" data-activity-list data-slug="spring"><div class="activities-heading"><h2 class="activities-title">Things to do here</h2><span class="activity-progress"><span data-activity-count>0</span> / 3</span></div><ul class="season-activities-list"><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Cherry Blossom Walk at Yuantong Temple</strong><span class="activity-text">Wander beneath the pink blossoms and listen to the temple bells before the crowds arrive.</span></span></label></li><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Boating on Green Lake</strong><span class="activity-text">Rent a small boat, drift past the willows, and watch the spring flowers reflected in the water.</span></span></label></li><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Camellia Picnic</strong><span class="activity-text">Spread a blanket among Kunming&#x27;s camellias and share fruit and tea in the mild afternoon sun.</span></span></label></li></ul></div>
         </section>
 
         <nav class="season-pagination" aria-label="Previous and next seasons" data-reveal>
@@ -62,6 +72,11 @@
         </nav>
       </article>
     </section>
+
+    <div class="lightbox" data-lightbox hidden>
+      <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+      <img class="lightbox-image" data-lightbox-image src="" alt="">
+    </div>
 
     <div class="season-swipe-hint" aria-hidden="true">
       <span>Swipe to change seasons</span>

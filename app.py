@@ -27,6 +27,11 @@ SEASONS = {
         "image_alt": "Pink cherry blossoms framing a traditional building in Kunming",
         "quote": "The earth laughs in flowers.",
         "author": "Ralph Waldo Emerson",
+        "intro": (
+            "Known as the City of Eternal Spring, Kunming fills with cherry "
+            "blossoms and camellias when the weather turns mild."
+        ),
+        "best_time": "March to May",
         "activities": [
             {
                 "title": "Cherry Blossom Walk at Yuantong Temple",
@@ -54,6 +59,11 @@ SEASONS = {
         "image_alt": "Tall palm trees and a bright blue sky beside the coast in Hainan",
         "quote": "Deep summer is when laziness finds respectability.",
         "author": "Sam Keen",
+        "intro": (
+            "China's tropical island, Hainan turns long warm days and a blue "
+            "coast into a long, easy summer."
+        ),
+        "best_time": "June to August",
         "activities": [
             {
                 "title": "Coral Coast Snorkelling",
@@ -81,6 +91,11 @@ SEASONS = {
         "image_alt": "Golden autumn trees reflected in a clear turquoise lake in Jiuzhaigou",
         "quote": "Autumn is a second spring when every leaf is a flower.",
         "author": "Albert Camus",
+        "intro": (
+            "In October the valleys around Jiuzhaigou turn gold and red, and "
+            "the still lakes reflect the forest like a mirror."
+        ),
+        "best_time": "September to November",
         "activities": [
             {
                 "title": "Boardwalk Walk Between the Lakes",
@@ -108,6 +123,11 @@ SEASONS = {
         "image_alt": "Golden morning light on a snow-covered mountain reflected in still water",
         "quote": "If winter comes, can spring be far behind?",
         "author": "Percy Bysshe Shelley",
+        "intro": (
+            "High in Tibet, winter brings clear air, bright sun and cold "
+            "mornings that turn the mountains golden."
+        ),
+        "best_time": "December to February",
         "activities": [
             {
                 "title": "Golden Sunrise over the Mountains",
@@ -149,20 +169,56 @@ def mini_navigation() -> str:
             f'<a href="/season/{season["slug"]}">'
             f'<span>{escape(season["number"])}</span>{escape(season["name"])}</a>'
         )
+    links.append('<a class="mini-nav-compare" href="/compare">Compare</a>')
     return "\n".join(links)
 
 
-def activities_markup(activities: list[dict[str, str]]) -> str:
+def image_variants(image: str) -> tuple[str, str]:
+    stem = image.rsplit(".", 1)[0]
+    return f"{stem}.webp", f"{stem}-small.webp"
+
+
+def picture_markup(
+    image: str,
+    alt: str,
+    sizes: str,
+    loading: str = "",
+    fetchpriority: str = "",
+) -> str:
+    webp, webp_small = image_variants(image)
+    source = (
+        f'<source type="image/webp" '
+        f'srcset="/static/{escape(webp)} 1800w, /static/{escape(webp_small)} 900w" '
+        f'sizes="{sizes}">'
+    )
+    image_tag = (
+        f'<img src="/static/{escape(image)}" alt="{escape(alt)}" '
+        f'{loading}{fetchpriority}>'
+    )
+    return f"<picture>{source}{image_tag}</picture>"
+
+
+def activities_markup(activities: list[dict[str, str]], slug: str) -> str:
     items = []
     for index, activity in enumerate(activities, start=1):
         items.append(
-            f'<li><span class="activity-number">{index:02d}</span>'
+            f'<li><label class="activity-item">'
+            f'<input class="activity-checkbox" type="checkbox" data-activity>'
+            f'<span class="activity-marker" aria-hidden="true"></span>'
             f'<span class="activity-content">'
             f'<strong class="activity-title">{escape(activity["title"])}</strong>'
             f'<span class="activity-text">{escape(activity["description"])}</span>'
-            f'</span></li>'
+            f'</span></label></li>'
         )
-    return '<ul class="season-activities-list">' + "".join(items) + "</ul>"
+    return (
+        f'<div class="season-activities" data-activity-list data-slug="{slug}">'
+        '<div class="activities-heading">'
+        '<h2 class="activities-title">Things to do here</h2>'
+        '<span class="activity-progress"><span data-activity-count>0</span> / '
+        f'{len(activities)}</span>'
+        "</div>"
+        '<ul class="season-activities-list">' + "".join(items) + "</ul></div>"
+    )
 
 
 def season_cards() -> str:
@@ -170,18 +226,25 @@ def season_cards() -> str:
     for slug in SEASON_ORDER:
         season = SEASONS[slug]
         loading = "eager" if season["number"] in ("01", "02") else "lazy"
+        loading_attr = f'loading="{loading}"' if loading else ""
         cards.append(
             f"""
             <a class="season-card"
                href="/season/{season['slug']}"
                style="--accent: {season['accent']}; --wash: {season['wash']};"
                data-season-card
+               data-season="{season['slug']}"
+               data-name="{escape(season['name'])}"
+               data-location="{escape(season['location'])}"
                data-page-transition
                aria-label="Explore {escape(season['name'])} in {escape(season['location'])}">
               <span class="card-image-wrap">
-                <img src="/static/{escape(season['image'])}"
-                     alt="{escape(season['image_alt'])}"
-                     loading="{loading}">
+                {picture_markup(
+                    season["image"],
+                    season["image_alt"],
+                    "(max-width: 760px) 100vw, 25vw",
+                    loading=loading_attr,
+                )}
               </span>
               <span class="card-wash" aria-hidden="true"></span>
               <span class="card-number">{escape(season['number'])}</span>
@@ -234,10 +297,18 @@ def season_page(slug: str) -> str | None:
             "IMAGE_ALT": escape(selected["image_alt"]),
             "QUOTE": escape(selected["quote"]),
             "AUTHOR": escape(selected["author"]),
-            "ACTIVITIES": activities_markup(selected["activities"]),
+            "ACTIVITIES": activities_markup(selected["activities"], selected["slug"]),
             "NUMBER": escape(selected["number"]),
             "ACCENT": escape(selected["accent"]),
             "WASH": escape(selected["wash"]),
+            "INTRO": escape(selected["intro"]),
+            "BEST_TIME": escape(selected["best_time"]),
+            "PICTURE": picture_markup(
+                selected["image"],
+                selected["image_alt"],
+                "(max-width: 760px) 100vw, 55vw",
+                fetchpriority='fetchpriority="high"',
+            ),
             "PREVIOUS_SLUG": previous["slug"],
             "PREVIOUS_NAME": escape(previous["name"]),
             "NEXT_SLUG": following["slug"],
@@ -248,6 +319,43 @@ def season_page(slug: str) -> str | None:
 
 def not_found_page() -> str:
     return render_template("404.html", {})
+
+
+def compare_page() -> str:
+    return render_template(
+        "compare.html",
+        {
+            "MINI_NAV": mini_navigation(),
+            "COMPARE_TABLE": compare_table_markup(),
+        },
+    )
+
+
+def compare_table_markup() -> str:
+    rows = []
+    for slug in SEASON_ORDER:
+        season = SEASONS[slug]
+        activity_titles = " · ".join(
+            activity["title"] for activity in season["activities"]
+        )
+        rows.append(
+            "<tr>"
+            f'<th scope="row">{escape(season["name"])}</th>'
+            f'<td>{escape(season["location"])}</td>'
+            f'<td>{escape(season["best_time"])}</td>'
+            f'<td>{escape(season["intro"])}</td>'
+            f'<td>{escape(activity_titles)}</td>'
+            "</tr>"
+        )
+    body = "".join(rows)
+    return (
+        '<div class="compare-scroll"><table class="compare-table">'
+        "<thead><tr>"
+        "<th>Season</th><th>Location</th><th>Best time</th>"
+        "<th>What to expect</th><th>Things to do</th>"
+        "</tr></thead><tbody>"
+        f"{body}</tbody></table></div>"
+    )
 
 
 def season_api_data() -> dict[str, object]:
@@ -286,6 +394,8 @@ class SiteHandler(BaseHTTPRequestHandler):
                 indent=2,
             ).encode("utf-8")
             self.send_bytes(payload, "application/json; charset=utf-8", send_body)
+        elif path == "/compare":
+            self.send_page(compare_page(), send_body)
         elif path == "/health":
             self.send_bytes(b'{"status": "ok"}', "application/json", send_body)
         elif path.startswith("/static/"):

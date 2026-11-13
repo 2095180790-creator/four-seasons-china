@@ -6,7 +6,14 @@ import re
 import shutil
 from pathlib import Path
 
-from app import SEASON_ORDER, STATIC_DIR, home_page, not_found_page, season_page
+from app import (
+    SEASON_ORDER,
+    STATIC_DIR,
+    compare_page,
+    home_page,
+    not_found_page,
+    season_page,
+)
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -14,8 +21,7 @@ DEFAULT_OUTPUT_DIR = PROJECT_DIR / "docs"
 
 
 def replace_static_paths(markup: str, prefix: str) -> str:
-    markup = markup.replace('href="/static/', f'href="{prefix}static/')
-    markup = markup.replace('src="/static/', f'src="{prefix}static/')
+    markup = markup.replace("/static/", f"{prefix}static/")
     return markup
 
 
@@ -26,6 +32,7 @@ def build_home() -> str:
         lambda match: f'href="{match.group(1)}/"',
         markup,
     )
+    markup = markup.replace('href="/compare"', 'href="compare/"')
     markup = markup.replace('href="/"', 'href="./"')
     return replace_static_paths(markup, "")
 
@@ -63,6 +70,18 @@ def build_not_found() -> str:
     return replace_static_paths(markup, "")
 
 
+def build_compare() -> str:
+    markup = compare_page()
+    markup = re.sub(
+        r'href="/season/([a-z]+)"',
+        lambda match: f'href="../{match.group(1)}/"',
+        markup,
+    )
+    markup = markup.replace('href="/compare"', 'href="./"')
+    markup = markup.replace('href="/"', 'href="../"')
+    return replace_static_paths(markup, "../")
+
+
 def export_static(output_dir: Path = DEFAULT_OUTPUT_DIR) -> None:
     output_dir = output_dir.resolve()
     if output_dir.exists():
@@ -73,6 +92,10 @@ def export_static(output_dir: Path = DEFAULT_OUTPUT_DIR) -> None:
     (output_dir / ".nojekyll").write_text("", encoding="utf-8")
     (output_dir / "index.html").write_text(build_home(), encoding="utf-8")
     (output_dir / "404.html").write_text(build_not_found(), encoding="utf-8")
+
+    compare_dir = output_dir / "compare"
+    compare_dir.mkdir()
+    (compare_dir / "index.html").write_text(build_compare(), encoding="utf-8")
 
     for slug in SEASON_ORDER:
         season_dir = output_dir / slug

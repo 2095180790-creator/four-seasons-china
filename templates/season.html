@@ -26,9 +26,16 @@
     </header>
 
     <section class="season-layout" aria-labelledby="season-title">
-      <figure class="season-visual" data-reveal>
-        <img src="/static/{{IMAGE}}" alt="{{IMAGE_ALT}}" fetchpriority="high">
-        <figcaption>{{LOCATION}} · {{NAME}}</figcaption>
+      <figure
+        class="season-visual"
+        data-reveal
+        data-lightbox-trigger
+        tabindex="0"
+        role="button"
+        aria-label="Enlarge the photograph"
+      >
+        {{PICTURE}}
+        <figcaption>{{LOCATION}} · {{NAME}} · Click to enlarge</figcaption>
       </figure>
 
       <article class="season-copy">
@@ -39,6 +46,9 @@
 
         <p class="eyebrow season-kicker" data-reveal>{{NAME}} in {{SHORT_LOCATION}}</p>
         <h1 id="season-title" class="sr-only">{{NAME}} in {{LOCATION}}</h1>
+
+        <p class="season-intro" data-reveal>{{INTRO}}</p>
+        <p class="season-best-time" data-reveal>Best time to visit: <strong>{{BEST_TIME}}</strong></p>
 
         <blockquote data-reveal>
           <p>“{{QUOTE}}”</p>
@@ -62,6 +72,11 @@
         </nav>
       </article>
     </section>
+
+    <div class="lightbox" data-lightbox hidden>
+      <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+      <img class="lightbox-image" data-lightbox-image src="" alt="">
+    </div>
 
     <div class="season-swipe-hint" aria-hidden="true">
       <span>Swipe to change seasons</span>

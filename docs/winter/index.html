@@ -26,9 +26,16 @@
     </header>
 
     <section class="season-layout" aria-labelledby="season-title">
-      <figure class="season-visual" data-reveal>
-        <img src="../static/images/winter-tibet.png" alt="Golden morning light on a snow-covered mountain reflected in still water" fetchpriority="high">
-        <figcaption>Tibet · Winter</figcaption>
+      <figure
+        class="season-visual"
+        data-reveal
+        data-lightbox-trigger
+        tabindex="0"
+        role="button"
+        aria-label="Enlarge the photograph"
+      >
+        <picture><source type="image/webp" srcset="../static/images/winter-tibet.webp 1800w, ../static/images/winter-tibet-small.webp 900w" sizes="(max-width: 760px) 100vw, 55vw"><img src="../static/images/winter-tibet.png" alt="Golden morning light on a snow-covered mountain reflected in still water" fetchpriority="high"></picture>
+        <figcaption>Tibet · Winter · Click to enlarge</figcaption>
       </figure>
 
       <article class="season-copy">
@@ -40,6 +47,9 @@
         <p class="eyebrow season-kicker" data-reveal>Winter in Tibet</p>
         <h1 id="season-title" class="sr-only">Winter in Tibet</h1>
 
+        <p class="season-intro" data-reveal>High in Tibet, winter brings clear air, bright sun and cold mornings that turn the mountains golden.</p>
+        <p class="season-best-time" data-reveal>Best time to visit: <strong>December to February</strong></p>
+
         <blockquote data-reveal>
           <p>“If winter comes, can spring be far behind?”</p>
           <footer>— Percy Bysshe Shelley</footer>
@@ -47,7 +57,7 @@
 
         <section class="season-activities" data-reveal aria-labelledby="activities-title">
           <h2 id="activities-title" class="activities-title">Things to do here</h2>
-          <ul class="season-activities-list"><li><span class="activity-number">01</span><span class="activity-content"><strong class="activity-title">Golden Sunrise over the Mountains</strong><span class="activity-text">Wake early and watch the first light turn the snow-covered peaks a deep golden orange.</span></span></li><li><span class="activity-number">02</span><span class="activity-content"><strong class="activity-title">Pilgrimage Walk in the Old Quarter</strong><span class="activity-text">Walk slowly through the historic streets, follow the local rhythm, and see the prayer flags in the wind.</span></span></li><li><span class="activity-number">03</span><span class="activity-content"><strong class="activity-title">Butter Tea on a Rooftop</strong><span class="activity-text">Warm your hands around a cup of butter tea and look out over the winter rooftops toward the mountains.</span></span></li></ul>
+          <div class="season-activities" data-activity-list data-slug="winter"><div class="activities-heading"><h2 class="activities-title">Things to do here</h2><span class="activity-progress"><span data-activity-count>0</span> / 3</span></div><ul class="season-activities-list"><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Golden Sunrise over the Mountains</strong><span class="activity-text">Wake early and watch the first light turn the snow-covered peaks a deep golden orange.</span></span></label></li><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Pilgrimage Walk in the Old Quarter</strong><span class="activity-text">Walk slowly through the historic streets, follow the local rhythm, and see the prayer flags in the wind.</span></span></label></li><li><label class="activity-item"><input class="activity-checkbox" type="checkbox" data-activity><span class="activity-marker" aria-hidden="true"></span><span class="activity-content"><strong class="activity-title">Butter Tea on a Rooftop</strong><span class="activity-text">Warm your hands around a cup of butter tea and look out over the winter rooftops toward the mountains.</span></span></label></li></ul></div>
         </section>
 
         <nav class="season-pagination" aria-label="Previous and next seasons" data-reveal>
@@ -62,6 +72,11 @@
         </nav>
       </article>
     </section>
+
+    <div class="lightbox" data-lightbox hidden>
+      <button class="lightbox-close" type="button" aria-label="Close enlarged image">×</button>
+      <img class="lightbox-image" data-lightbox-image src="" alt="">
+    </div>
 
     <div class="season-swipe-hint" aria-hidden="true">
       <span>Swipe to change seasons</span>

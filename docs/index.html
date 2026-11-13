@@ -22,6 +22,7 @@
 <a href="summer/"><span>02</span>Summer</a>
 <a href="autumn/"><span>03</span>Autumn</a>
 <a href="winter/"><span>04</span>Winter</a>
+<a class="mini-nav-compare" href="compare/">Compare</a>
     </nav>
   </header>
 
@@ -38,18 +39,30 @@
       </p>
     </section>
 
-    <section class="season-grid" aria-label="Choose a season">
+    <div class="season-controls" data-season-controls aria-label="Filter and sort seasons">
+      <div class="filter-buttons">
+        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-button" type="button" data-filter="spring" aria-pressed="false">Spring</button>
+        <button class="filter-button" type="button" data-filter="summer" aria-pressed="false">Summer</button>
+        <button class="filter-button" type="button" data-filter="autumn" aria-pressed="false">Autumn</button>
+        <button class="filter-button" type="button" data-filter="winter" aria-pressed="false">Winter</button>
+      </div>
+      <button class="sort-button" type="button" data-sort-toggle aria-pressed="false">Sort A–Z</button>
+    </div>
+
+    <section class="season-grid" data-season-grid aria-label="Choose a season">
       
             <a class="season-card"
                href="spring/"
                style="--accent: #d76e8d; --wash: #f6e6eb;"
                data-season-card
+               data-season="spring"
+               data-name="Spring"
+               data-location="Kunming, Yunnan"
                data-page-transition
                aria-label="Explore Spring in Kunming, Yunnan">
               <span class="card-image-wrap">
-                <img src="static/images/spring-kunming.jpg"
-                     alt="Pink cherry blossoms framing a traditional building in Kunming"
-                     loading="eager">
+                <picture><source type="image/webp" srcset="static/images/spring-kunming.webp 1800w, static/images/spring-kunming-small.webp 900w" sizes="(max-width: 760px) 100vw, 25vw"><img src="static/images/spring-kunming.jpg" alt="Pink cherry blossoms framing a traditional building in Kunming" loading="eager"></picture>
               </span>
               <span class="card-wash" aria-hidden="true"></span>
               <span class="card-number">01</span>
@@ -65,12 +78,13 @@
                href="summer/"
                style="--accent: #138eb9; --wash: #dff3f7;"
                data-season-card
+               data-season="summer"
+               data-name="Summer"
+               data-location="Hainan"
                data-page-transition
                aria-label="Explore Summer in Hainan">
               <span class="card-image-wrap">
-                <img src="static/images/summer-hainan.webp"
-                     alt="Tall palm trees and a bright blue sky beside the coast in Hainan"
-                     loading="eager">
+                <picture><source type="image/webp" srcset="static/images/summer-hainan.webp 1800w, static/images/summer-hainan-small.webp 900w" sizes="(max-width: 760px) 100vw, 25vw"><img src="static/images/summer-hainan.webp" alt="Tall palm trees and a bright blue sky beside the coast in Hainan" loading="eager"></picture>
               </span>
               <span class="card-wash" aria-hidden="true"></span>
               <span class="card-number">02</span>
@@ -86,12 +100,13 @@
                href="autumn/"
                style="--accent: #c86b2c; --wash: #f7e9d7;"
                data-season-card
+               data-season="autumn"
+               data-name="Autumn"
+               data-location="Jiuzhaigou, Sichuan"
                data-page-transition
                aria-label="Explore Autumn in Jiuzhaigou, Sichuan">
               <span class="card-image-wrap">
-                <img src="static/images/autumn-jiuzhaigou.png"
-                     alt="Golden autumn trees reflected in a clear turquoise lake in Jiuzhaigou"
-                     loading="lazy">
+                <picture><source type="image/webp" srcset="static/images/autumn-jiuzhaigou.webp 1800w, static/images/autumn-jiuzhaigou-small.webp 900w" sizes="(max-width: 760px) 100vw, 25vw"><img src="static/images/autumn-jiuzhaigou.png" alt="Golden autumn trees reflected in a clear turquoise lake in Jiuzhaigou" loading="lazy"></picture>
               </span>
               <span class="card-wash" aria-hidden="true"></span>
               <span class="card-number">03</span>
@@ -107,12 +122,13 @@
                href="winter/"
                style="--accent: #578aab; --wash: #e3edf2;"
                data-season-card
+               data-season="winter"
+               data-name="Winter"
+               data-location="Tibet"
                data-page-transition
                aria-label="Explore Winter in Tibet">
               <span class="card-image-wrap">
-                <img src="static/images/winter-tibet.png"
-                     alt="Golden morning light on a snow-covered mountain reflected in still water"
-                     loading="lazy">
+                <picture><source type="image/webp" srcset="static/images/winter-tibet.webp 1800w, static/images/winter-tibet-small.webp 900w" sizes="(max-width: 760px) 100vw, 25vw"><img src="static/images/winter-tibet.png" alt="Golden morning light on a snow-covered mountain reflected in still water" loading="lazy"></picture>
               </span>
               <span class="card-wash" aria-hidden="true"></span>
               <span class="card-number">04</span>

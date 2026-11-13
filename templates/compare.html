@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171814">
+  <meta name="description" content="Compare spring, summer, autumn and winter across China.">
+  <title>Compare the Seasons | Four Seasons Across China</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2246%22 fill=%22%23171814%22/><path d=%22M50 16c11 11 16 21 16 34S61 84 50 84 34 63 34 50s5-23 16-34Z%22 fill=%22%23f4efe7%22/></svg>">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="compare-page">
+  <header class="site-header" data-reveal>
+    <a class="wordmark" href="/" aria-label="Four Seasons Across China home">
+      <span class="wordmark-mark" aria-hidden="true"></span>
+      <span>Four Seasons<br>Across China</span>
+    </a>
+    <nav class="mini-nav" aria-label="Seasons">
+      {{MINI_NAV}}
+    </nav>
+  </header>
+
+  <main class="compare-main">
+    <p class="eyebrow" data-reveal>Four seasons at a glance</p>
+    <h1 data-reveal>Compare the seasons</h1>
+    <p class="compare-intro" data-reveal>
+      One country, four landscapes. Use the table to see where to go, when to
+      visit, and what each place is known for.
+    </p>
+    {{COMPARE_TABLE}}
+  </main>
+
+  <footer class="home-footer" data-reveal>
+    <span>Web Technologies Project · 2026</span>
+    <span><a href="/">Back to the four seasons</a></span>
+  </footer>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>
