@@ -45,6 +45,18 @@ SEASONS = {
                 "title": "Camellia Picnic",
                 "description": "Spread a blanket among Kunming's camellias and share fruit and tea in the mild afternoon sun.",
             },
+            {
+                "title": "Stone Forest Day Trip",
+                "description": "Walk between the limestone rock formations that rise from the ground like a forest of stone.",
+            },
+            {
+                "title": "Birdwatching at Dianchi Lake",
+                "description": "Follow the lakeside paths and watch the birds that gather on the wide water.",
+            },
+            {
+                "title": "Visit the Dounan Flower Market",
+                "description": "Browse one of the largest flower markets in Asia and pick a bunch of fresh blossoms.",
+            },
         ],
         "accent": "#d76e8d",
         "wash": "#f6e6eb",
@@ -76,6 +88,18 @@ SEASONS = {
             {
                 "title": "Fresh Coconut by the Shore",
                 "description": "Find a palm-tree stand, drink the water straight from a coconut, and rest in the shade.",
+            },
+            {
+                "title": "Surfing at Riyue Bay",
+                "description": "Learn to catch gentle waves on a wide, sandy bay with a rented board.",
+            },
+            {
+                "title": "Rainforest Walk in Wuzhishan",
+                "description": "Trek through the green tropical forest and listen for birds among the tall trees.",
+            },
+            {
+                "title": "Beach Volleyball at Sunset",
+                "description": "Join a game on the sand and play until the sky turns orange over the water.",
             },
         ],
         "accent": "#138eb9",
@@ -109,6 +133,18 @@ SEASONS = {
                 "title": "Waterfall Listening",
                 "description": "Stand close to the falling water, hear the valley echo, and feel the cool spray in the autumn air.",
             },
+            {
+                "title": "View Nuorilang Waterfall",
+                "description": "Watch the wide curtain of water that spreads across the valley in one of Jiuzhaigou's best-known views.",
+            },
+            {
+                "title": "Walk to Long Lake",
+                "description": "Climb slowly to the highest lake, where the clear water lies surrounded by quiet peaks.",
+            },
+            {
+                "title": "Taste Local Tibetan Food",
+                "description": "Warm up after the trails with butter tea, yak milk yogurt, and fresh flatbread.",
+            },
         ],
         "accent": "#c86b2c",
         "wash": "#f7e9d7",
@@ -140,6 +176,18 @@ SEASONS = {
             {
                 "title": "Butter Tea on a Rooftop",
                 "description": "Warm your hands around a cup of butter tea and look out over the winter rooftops toward the mountains.",
+            },
+            {
+                "title": "Visit the Potala Palace",
+                "description": "Climb the white and red palace on the hill and see its halls in the clear winter light.",
+            },
+            {
+                "title": "Browse the Local Market",
+                "description": "Look for warm yak-wool scarves and hand-made souvenirs among the market stalls.",
+            },
+            {
+                "title": "Evening Prayer at Jokhang Temple",
+                "description": "Watch the butter lamps glow and see pilgrims walk around the temple as evening falls.",
             },
         ],
         "accent": "#578aab",
