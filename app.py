@@ -260,7 +260,7 @@ def activities_markup(activities: list[dict[str, str]], slug: str) -> str:
             f'</span></label></li>'
         )
     return (
-        f'<div class="season-activities" data-activity-list data-slug="{slug}">'
+        f'<div class="season-activities" data-activity-list data-slug="{slug}" data-reveal>'
         '<div class="activities-heading">'
         '<h2 class="activities-title">Things to do here</h2>'
         '<span class="activity-progress"><span data-activity-count>0</span> / '
