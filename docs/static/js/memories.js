@@ -1,5 +1,9 @@
 const STORAGE_KEY = "four-seasons-travel-memories";
 
+requestAnimationFrame(() => {
+  window.requestAnimationFrame(() => document.body.classList.add("is-ready"));
+});
+
 const form = document.getElementById("memory-form");
 const imageInput = document.getElementById("memory-image");
 const placeInput = document.getElementById("memory-place");
