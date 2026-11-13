@@ -53,6 +53,12 @@ class SeasonsWebsiteTests(unittest.TestCase):
         self.assertEqual(response.status, 200)
         self.assertIn("Compare the seasons", content)
 
+    def test_memories_page_loads(self):
+        with self.request("/memories") as response:
+            content = response.read().decode("utf-8")
+        self.assertEqual(response.status, 200)
+        self.assertIn("My Travel Memories", content)
+
     def test_static_image_is_available(self):
         with self.request("/static/images/spring-kunming.jpg") as response:
             self.assertEqual(response.status, 200)

@@ -10,6 +10,7 @@ from app import (
     STATIC_DIR,
     compare_page,
     home_page,
+    memories_page,
     not_found_page,
     season_api_data,
     season_page,
@@ -51,6 +52,8 @@ def application(environ, start_response):
         content_type = "application/json; charset=utf-8"
     elif path == "/compare":
         body = compare_page().encode("utf-8")
+    elif path == "/memories":
+        body = memories_page().encode("utf-8")
     elif path == "/health":
         body = b'{"status": "ok"}'
         content_type = "application/json"

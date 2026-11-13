@@ -761,6 +761,148 @@ body.lightbox-open {
   display: none;
 }
 
+/* Travel memories page */
+.memories-page {
+  min-height: 100svh;
+  background: var(--paper);
+}
+
+.memories-main {
+  width: min(100% - 48px, 1080px);
+  margin-inline: auto;
+  padding-block: clamp(32px, 5vw, 68px) 28px;
+}
+
+.memories-main h1 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.memories-intro {
+  max-width: 44rem;
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.5;
+}
+
+.memory-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.memory-field {
+  display: grid;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.memory-field-wide {
+  grid-column: 1 / -1;
+}
+
+.memory-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: #fff;
+  font: 0.92rem/1.3 var(--sans);
+}
+
+.memory-submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 99px;
+  color: var(--paper);
+  background: var(--ink);
+  font: 700 0.78rem/1 var(--sans);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.memory-submit:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.memory-status {
+  min-height: 1.4em;
+  margin: 14px 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.memory-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.memory-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.memory-card-body {
+  padding: 14px 16px 16px;
+}
+
+.memory-place {
+  margin: 0 0 5px;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.memory-activity {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.memory-delete {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: var(--muted);
+  background: transparent;
+  font: 700 0.68rem/1 var(--sans);
+  cursor: pointer;
+}
+
+.memory-empty {
+  grid-column: 1 / -1;
+  padding: 28px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
 /* Comparison page */
 .compare-page {
   min-height: 100svh;
@@ -930,6 +1072,7 @@ body.lightbox-open {
 @media (max-width: 760px) {
   .site-header,
   .home-main,
+  .memories-main,
   .compare-main {
     width: min(100% - 28px, 1480px);
   }
@@ -949,6 +1092,11 @@ body.lightbox-open {
   .season-controls {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .memory-form,
+  .memory-grid {
+    grid-template-columns: 1fr;
   }
 
   .home-intro h1 {

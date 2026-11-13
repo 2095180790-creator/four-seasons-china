@@ -218,6 +218,7 @@ def mini_navigation() -> str:
             f'<span>{escape(season["number"])}</span>{escape(season["name"])}</a>'
         )
     links.append('<a class="mini-nav-compare" href="/compare">Compare</a>')
+    links.append('<a class="mini-nav-compare" href="/memories">Memories</a>')
     return "\n".join(links)
 
 
@@ -379,6 +380,10 @@ def compare_page() -> str:
     )
 
 
+def memories_page() -> str:
+    return render_template("memories.html", {"MINI_NAV": mini_navigation()})
+
+
 def compare_table_markup() -> str:
     rows = []
     for slug in SEASON_ORDER:
@@ -444,6 +449,8 @@ class SiteHandler(BaseHTTPRequestHandler):
             self.send_bytes(payload, "application/json; charset=utf-8", send_body)
         elif path == "/compare":
             self.send_page(compare_page(), send_body)
+        elif path == "/memories":
+            self.send_page(memories_page(), send_body)
         elif path == "/health":
             self.send_bytes(b'{"status": "ok"}', "application/json", send_body)
         elif path.startswith("/static/"):

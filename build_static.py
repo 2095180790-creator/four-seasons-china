@@ -11,6 +11,7 @@ from app import (
     STATIC_DIR,
     compare_page,
     home_page,
+    memories_page,
     not_found_page,
     season_page,
 )
@@ -33,6 +34,7 @@ def build_home() -> str:
         markup,
     )
     markup = markup.replace('href="/compare"', 'href="compare/"')
+    markup = markup.replace('href="/memories"', 'href="memories/"')
     markup = markup.replace('href="/"', 'href="./"')
     return replace_static_paths(markup, "")
 
@@ -78,6 +80,20 @@ def build_compare() -> str:
         markup,
     )
     markup = markup.replace('href="/compare"', 'href="./"')
+    markup = markup.replace('href="/memories"', 'href="../memories/"')
+    markup = markup.replace('href="/"', 'href="../"')
+    return replace_static_paths(markup, "../")
+
+
+def build_memories() -> str:
+    markup = memories_page()
+    markup = re.sub(
+        r'href="/season/([a-z]+)"',
+        lambda match: f'href="../{match.group(1)}/"',
+        markup,
+    )
+    markup = markup.replace('href="/compare"', 'href="../compare/"')
+    markup = markup.replace('href="/memories"', 'href="./"')
     markup = markup.replace('href="/"', 'href="../"')
     return replace_static_paths(markup, "../")
 
@@ -96,6 +112,10 @@ def export_static(output_dir: Path = DEFAULT_OUTPUT_DIR) -> None:
     compare_dir = output_dir / "compare"
     compare_dir.mkdir()
     (compare_dir / "index.html").write_text(build_compare(), encoding="utf-8")
+
+    memories_dir = output_dir / "memories"
+    memories_dir.mkdir()
+    (memories_dir / "index.html").write_text(build_memories(), encoding="utf-8")
 
     for slug in SEASON_ORDER:
         season_dir = output_dir / slug
